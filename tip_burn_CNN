@@ -1,0 +1,116 @@
+from google.colab import drive
+drive.mount('/content/drive')
+--------------------------------
+import os
+-------------------------------------------------------------------------------------------
+# 수정된 디렉토리
+train_healthy_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/train/healthy'
+train_tipburn_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/train/tipburn'
+val_healthy_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/val/healthy'
+val_tipburn_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/val/tipburn'
+test_healthy_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/test/healthy'
+test_tipburn_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/test/tipburn'
+-------------------------------------------------------------------------------------------
+print('훈련용 건강 이미지 전체 개수:',len(os.listdir(train_healthy_dir)))
+print('훈련용 팁번 이미지 전체 개수:',len(os.listdir(train_tipburn_dir)))
+print('검증용 건강 이미지 전체 개수:',len(os.listdir(val_healthy_dir)))
+print('검증용 팁번 이미지 전체 개수:',len(os.listdir(val_tipburn_dir)))
+print('테스트용 건강 이미지 전체 개수:',len(os.listdir(test_healthy_dir)))
+print('테스트용 팁번 이미지 전체 개수:',len(os.listdir(test_tipburn_dir)))
+----------------------------------------------------------------------------
+train_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/train'
+val_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/val'
+test_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/test'
+----------------------------------------------------------------------------
+# 데이터 전처리
+from keras.preprocessing.image import ImageDataGenerator
+----------------------------------------------------------------------------
+# 모든 이미지를 1/255로 스케일 조정
+train_datagen = ImageDataGenerator(rescale=1./255)
+test_datagen = ImageDataGenerator(rescale=1./255)
+
+train_generator = train_datagen.flow_from_directory(
+        # 타깃 디렉터리
+        train_dir,
+        # 모든 이미지를 150 × 150 크기로
+        target_size=(150, 150), # 변수1
+        batch_size=20, # 변수2
+        # binary_crossentropy 손실을 사용하기 때문에 이진 레이블이 필요하다
+        class_mode='binary')
+        
+validation_generator = test_datagen.flow_from_directory(
+        val_dir,
+        target_size=(150, 150),
+        batch_size=20,
+        class_mode='binary')
+---------------------------------------------------------------------------- 
+for data_batch, labels_batch in train_generator:
+    print('배치 데이터 크기:', data_batch.shape)
+    print('배치 레이블 크기:', labels_batch.shape)
+    break
+-----------------------------------------------------------------------------    
+# 모델 구성 # 변수3 : 층 개수 : conv2d&maxpooling layer를 추가 또는 Dense를 추가
+
+from keras import layers
+from keras import models
+
+model = models.Sequential()
+model.add(layers.Conv2D(32, (3, 3), activation='relu',
+                        input_shape=(150, 150, 3)))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation='relu')) : # 변수4 : 64 or 128 or 256 등
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Flatten())
+model.add(layers.Dense(512, activation='relu'))
+model.add(layers.Dense(1, activation='sigmoid'))
+-----------------------------------------------------------------------------
+model.summary()
+-----------------------------------------------------------------------------
+from keras import optimizers
+
+model.compile(loss='binary_crossentropy',
+              optimizer=optimizers.RMSprop(lr=1e-4), # 변수 5 adam VS RMSprop 을 비교?  # 변수6 lr : learning rate 10^-5 ~ 10^-4
+              metrics=['acc'])
+-----------------------------------------------------------------------------
+history = model.fit(
+      train_generator,
+      steps_per_epoch=20, 
+      # 변수 7 : epoch 한 단계 steps per epoch : 한단계를 단계적으로 한 바퀴(몇 단계로 할거냐) - epoch수 조절 / 우리는 parameter를 조절하면서 오차를 개선
+      epochs=20,
+      validation_data=validation_generator,
+      validation_steps=10)
+----------------------------------------------------------------------------------------------
+from keras.models import load_model
+model.save('/content/drive/MyDrive/Colab Notebooks/tip burn project/model/model.h5')
+----------------------------------------------------------------------------------------------
+from keras.models import load_model
+model = load_model('/content/drive/MyDrive/Colab Notebooks/tip burn project/model/model.h5')
+model.summary()
+----------------------------------------------------------------------------------------------
+import matplotlib.pyplot as plt
+
+acc = history.history['acc']
+val_acc = history.history['val_acc']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs = range(len(acc))
+
+plt.plot(epochs, acc, 'bo', label='Training acc')
+plt.plot(epochs, val_acc, 'b', label='Validation acc')
+plt.title('Training and validation accuracy')
+plt.legend()
+
+plt.figure()
+
+plt.plot(epochs, loss, 'bo', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.legend()
+
+plt.show() # validation acc : 진동 , 감소하는 경향 : 데이터 부족 or 개선해봐야할점 (lr이 작아서 ???) / 크롤링은 더 해야하는거지?
+-------------------------------------------------------------------------------------------------------------------------------
