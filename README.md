@@ -64,6 +64,26 @@ VSCODE를 사용하여 가상환경에서 셀레니움을 설치한다. 이후 �
 
 ## 2) Flow-Recognition Method using CNN
 
+### (1) CNN이 무엇인가?
+![CNN system](https://user-images.githubusercontent.com/117802301/204230213-1810f4cf-9469-4f28-b62e-81d46a8dc7af.gif)
+
+CNN은 Convolutional Neural Networks의 약자로 합성곱 전처리 작업이 들어가는 신경망 모델입니다. 날 것의 이미지를 그대로 받으면서 공간적/지역적 정보를 유지한 채 특성들의 계층을 빌드업하는 형식으로 중요 포인트는 이미지 전체보다는 부분을 보는 것으로 이미지의 한 
+픽셀과 주변 픽셀들의 연관성을 살립니다. 인간의 시신경 구조를 모방하는 기술인 CNN은 이미지를 인식하기 위해 패턴을 찾는데 특히 유용하며 데이터를 직접 학습하고 패턴을 사용해 이미지의 공간 정보를 유지한 채 학습을 하게 되는 모델입니다.
+
+### (2) CNN의 원리
+
+CNN(Convolutional Neural Network)은 기존 Fully Connected Neural Network와 비교하여 다음과 같은 차별성을 갖습니다.
+
+- 각 레이어의 입출력 데이터의 형상 유지
+- 이미지의 공간 정보를 유지하면서 인접 이미지와의 특징을 효과적으로 인식
+- 복수의 필터로 이미지의 특징 추출 및 학습
+- 추출한 이미지의 특징을 모으고 강화하는 Pooling 레이어
+- 필터를 공유 파라미터로 사용하기 때문에, 일반 인공 신경망과 비교하여 학습 파라미터가 매우 적음
+
+![CNN pic1](https://user-images.githubusercontent.com/117802301/204230714-f7835982-6fed-4e32-a9a9-e133dd34202d.png)
+
+
+CNN은 위 이미지와 같이 이미지의 특징을 추출하는 부분과 클래스를 분류하는 부분으로 나눌 수 있습니다. 특징 추출 영역은 Convolution Layer와 Pooling Layer를 여러 겹 쌓는 형태로 구성됩니다. Convolution Layer는 입력 데이터에 필터를 적용 후 활성화 함수를 반영하는 필수 요소입니다. Convolution Layer 다음에 위치하는 Pooling Layer는 선택적인 레이어입니다. CNN 마지막 부분에는 이미지 분류를 위한 Fully Connected 레이어가 추가됩니다. 이미지의 특징을 추출하는 부분과 이미지를 분류하는 부분 사이에 이미지 형태의 데이터를 배열 형태로 만드는 Flatten 레이어가 위치 합니다.
 
 
 # Evaluation & Analysis
@@ -423,11 +443,13 @@ model.add(layers.Dense(1, activation='sigmoid'))
 
 # Conclusion : Discussion
 
+## Best Optimized Model
 
 ![model 딥러닝 표](https://user-images.githubusercontent.com/117802301/204227189-844a6992-07ca-46b2-b193-2c8f9ef7f99b.png)
 ![model 10](https://user-images.githubusercontent.com/117802301/204227347-c7c375aa-6b6c-471d-9c72-57c2d434f2d3.png)
 
-최종적으로 구현한 모델에서 과적함을 극복하고 loss가 감소하면서 accuracy가 증가하는 현상 발생 정확도 93.47%와 val acc가 95%로 알고리즘 수행하였습니다.
+최종적으로 구현한 모델에서 과적함을 극복하고 loss가 감소하면서 accuracy가 증가하는 현상 발생하였습니다.
+정확도 93.47%와 val acc가 95%로 모댈의 오차를 최적화한채 구현 하였습니다.
 
 
 # Related Works
