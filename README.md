@@ -46,7 +46,7 @@ https://www.kaggle.com/datasets/cf488efb70f71b0db8c5a69539ea35874787d4a4ab835126
 ![images of strawberry](https://user-images.githubusercontent.com/117802301/204216971-6f71729a-33cc-4101-af74-6cf7dbff3470.png)
 
 본 이미지는 kaggle 사이트에서 각 calciumdeficiency 사진 805장과 건강한 잎 626장을 데이터 셋으로 불러왔습니다. 
-구글 드라이브를 통해 총 1433의 파일을 저장하여 이를 colab으로 불러와 꽃 사진을 분류하는 프로그램을 진행하였고 kaggle 사이트에서 가져온 1433의 사진 파일과 10 columns 뿐만 아니라
+구글 드라이브를 통해 총 1431의 파일을 저장하여 이를 colab으로 불러와 꽃 사진을 분류하는 프로그램을 진행하였고 kaggle 사이트에서 가져온 1431의 사진 파일과 10 columns 뿐만 아니라
 구글에서 따로 이미지 크롤링을 python 셀레니움을 통해 자동으로 정리하는 시스템을 갖보았습니다.
 
 
@@ -422,6 +422,13 @@ model.add(layers.Dense(1, activation='sigmoid'))
 
 
 ## Conclusion : Discussion
+
+
+![model 딥러닝 표](https://user-images.githubusercontent.com/117802301/204227189-844a6992-07ca-46b2-b193-2c8f9ef7f99b.png)
+![model 10](https://user-images.githubusercontent.com/117802301/204227347-c7c375aa-6b6c-471d-9c72-57c2d434f2d3.png)
+
+최종적으로 구현한 모델에서 과적함을 극복하고 loss가 감소하면서 accuracy가 증가하는 현상 발생 정확도 93.47%와 val acc가 95%로 알고리즘 수행하였습니다.
+
 
 ## Related Works
 https://goldsystem.tistory.com/822
