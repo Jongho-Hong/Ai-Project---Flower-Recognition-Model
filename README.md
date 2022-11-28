@@ -1,7 +1,7 @@
 # Ai-Project-Flower-Recognition-Model
 ## Topic
 ```
-## 꽃 생장 파악 알고리즘(CNN, Classification etc)
+꽃 생장 파악 알고리즘(CNN, Classification etc)
 ```
 ## Member
 ```
