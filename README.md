@@ -62,7 +62,7 @@ VSCODE를 사용하여 가상환경에서 셀레니움을 설치한다. 이후 �
 ![imagecrawling](https://user-images.githubusercontent.com/117802301/204221170-55b3ad92-6994-43a8-9382-45d4b71bd4f4.gif)
 
 
-## 2) Flow-Recognition Method using Colab
+## 2) Flow-Recognition Method using CNN
 
 
 
