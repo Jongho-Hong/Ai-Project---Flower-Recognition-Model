@@ -85,6 +85,11 @@ CNN(Convolutional Neural Network)은 기존 Fully Connected Neural Network와 �
 
 CNN은 위 이미지와 같이 이미지의 특징을 추출하는 부분과 클래스를 분류하는 부분으로 나눌 수 있습니다. 특징 추출 영역은 Convolution Layer와 Pooling Layer를 여러 겹 쌓는 형태로 구성됩니다. Convolution Layer는 입력 데이터에 필터를 적용 후 활성화 함수를 반영하는 필수 요소입니다. Convolution Layer 다음에 위치하는 Pooling Layer는 선택적인 레이어입니다. CNN 마지막 부분에는 이미지 분류를 위한 Fully Connected 레이어가 추가됩니다. 이미지의 특징을 추출하는 부분과 이미지를 분류하는 부분 사이에 이미지 형태의 데이터를 배열 형태로 만드는 Flatten 레이어가 위치 합니다.
 
+### (3) CNN을 활용한 Tipburn/Healthy 구분
+![tipburn_healthy](https://user-images.githubusercontent.com/117802301/204232483-bfc13e25-d6ed-40bd-882f-36da4b9c3e52.png)
+
+우리는 CNN의 딥러닝 기법을 활용하여 각 잎의 픽셀 별로 공간을 유지한채 색상을 파악할 예정입니다. 그리고 색상에 따라 이것이 건강한 잎인지 아닌지를 구별하면서 모델을 구현하고
+추가로 이 CNN을 활용했을 때 나타나는 변수들을 설정하고 그에 따른 결과치를 정확도를 판별하여 분석할 예정입니다. 
 
 # Evaluation & Analysis
 
