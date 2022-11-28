@@ -446,6 +446,41 @@ model.add(layers.Dense(1, activation='sigmoid'))
 #### insight : model8에서 lr를 7e-5에서 1e-4로 변경하였고, 과적합이 개선되었음. 또한 acc 83%, val_acc 93%로 성능 또한 매우 우수함.
 
 
+
+### (10) Model 10
+(1) parameter :
+ 1) image size : 300 X 300
+ 2) batch_size : 20
+ 3) model composition :
+
+```
+model = models.Sequential()
+model.add(layers.Conv2D(32, (3, 3), activation='relu',
+                        input_shape=(300, 300, 3)))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Flatten())
+model.add(layers.Dense(512, activation='relu'))
+model.add(layers.Dense(1, activation='sigmoid'))
+```
+ 4) optimizers : Adam
+ 5) lr = 1e-4
+ 6) steps_per_epoch = 30 & epochs = 15 
+ 7) Data augmentation 외제외
+
+![aix_model9](https://user-images.githubusercontent.com/117802301/204225839-5e0ec504-246e-498e-b580-9cc794053abb.png)
+
+#### insight : Data augmentation 삭제로 성능 저해 방지. 과적합이 개선되었음. 또한 acc 93.47%, val_acc 95%로 성능 또한 매우 우수함.
+
 # Conclusion : Discussion
 
 ## Best Optimized Model
