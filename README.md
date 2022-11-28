@@ -396,7 +396,7 @@ _________________________________________________________________
 ```
 <br/><br/>
 * 변수들을 설정한뒤 다시 모델을 불러옵니다.
-<br/><br/><br/><br/><br/>
+<br/><br/><br/>
 ### (7) Plot for the accuracy
 ```
 import matplotlib.pyplot as plt
