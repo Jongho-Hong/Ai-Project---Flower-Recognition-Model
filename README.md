@@ -139,6 +139,7 @@ driver.close()
 
 
 ## 2) Flower-Recognition-Model
+
 ### (1) Content Drive, Import OS
 ```
 from google.colab import drive
@@ -151,7 +152,8 @@ import os
 <br/>
 * 드라이브와 OS를 import하면서 사진을 부를 장소를 정합니다. 
 * model1을 제작할때 사용한 코드입니다.
-<br/><br/>
+<br/>
+
 ### (2) Load Image, Check quantity
 ```
 # 수정된 디렉토리
@@ -184,6 +186,7 @@ test_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/test'
 <br/><br/>
 * 구글 드라이브에 저장한 건강, 팁번 이미지들을 불러모으고 각각 훈련, 검증, 테스트용으로 분류하고 수량을 파악합니다.
 <br/><br/>
+
 ### (3) Data Preprocessing, Image scaling
 ```
 from keras.preprocessing.image import ImageDataGenerator
@@ -217,6 +220,7 @@ for data_batch, labels_batch in train_generator:
 * 모든 이미지를 150 × 150 크기로 타깃 디레터리를 설정 후 타깃 사이즈와 batch 사이즈를 정해줍니다.
 * Binary_crossentropy 손실을 사용하기 때문에 이진 레이블이 필요하다.
 * 배치 데이터와 레이블 크기를 확입합니다.<br/><br/>
+
 ### (4) Model construction, variable setting
 ```
 from keras import layers
