@@ -148,6 +148,10 @@ Mounted at /content/drive
 ```
 import os
 ```
+<br/><br/><br/>
+* 드라이브와 OS를 import하면서 사진을 부를 장소를 정합니다. 
+* model1을 제작할때 사용한 코드입니다.
+<br/><br/>
 ### (2) Load Image, Check quantity
 ```
 # 수정된 디렉토리
@@ -177,22 +181,20 @@ train_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/train'
 val_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/val'
 test_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/test'
 ```
+<br/><br/><br/>
+* 구글 드라이브에 저장한 건강, 팁번 이미지들을 불러모으고 각각 훈련, 검증, 테스트용으로 분류하고 수량을 파악합니다.
+<br/><br/>
 ### (3) Data Preprocessing, Image scaling
 ```
-# 데이터 전처리
 from keras.preprocessing.image import ImageDataGenerator
 
-# 모든 이미지를 1/255로 스케일 조정
 train_datagen = ImageDataGenerator(rescale=1./255)
 test_datagen = ImageDataGenerator(rescale=1./255)
 
 train_generator = train_datagen.flow_from_directory(
-        # 타깃 디렉터리
         train_dir,
-        # 모든 이미지를 150 × 150 크기로
-        target_size=(150, 150), # 변수1
-        batch_size=20, # 변수2
-        # binary_crossentropy 손실을 사용하기 때문에 이진 레이블이 필요하다
+        target_size=(150, 150), 
+        batch_size=20, 
         class_mode='binary')
 
 validation_generator = test_datagen.flow_from_directory(
@@ -210,11 +212,13 @@ for data_batch, labels_batch in train_generator:
     break
 ```
 배치 데이터 크기: (20, 150, 150, 3)<br/>
-배치 레이블 크기: (20,)
+배치 레이블 크기: (20,)<br/><br/><br/>
+* 데이터 전처리를 진행하며 이미지를 1/255로 스케일 조정을 진행합니다. 
+* 모든 이미지를 150 × 150 크기로 타깃 디레터리를 설정 후 타깃 사이즈와 batch 사이즈를 정해줍니다.
+* Binary_crossentropy 손실을 사용하기 때문에 이진 레이블이 필요하다.
+* 배치 데이터와 레이블 크기를 확입합니다.<br/><br/>
 ### (4) Model construction, variable setting
 ```
-# 모델 구성 # 변수3 : 층 개수 : conv2d&maxpooling layer를 추가 또는 Dense를 추가
-
 from keras import layers
 from keras import models
 
@@ -222,7 +226,7 @@ model = models.Sequential()
 model.add(layers.Conv2D(32, (3, 3), activation='relu',
                         input_shape=(150, 150, 3)))
 model.add(layers.MaxPooling2D((2, 2)))
-model.add(layers.Conv2D(64, (3, 3), activation='relu')) : # 변수4 : 64 or 128 or 256 등
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 model.add(layers.MaxPooling2D((2, 2)))
 model.add(layers.Conv2D(128, (3, 3), activation='relu'))
 model.add(layers.MaxPooling2D((2, 2)))
@@ -234,7 +238,9 @@ model.add(layers.Dense(1, activation='sigmoid'))
 ```
 ```
 model.summary()
-::
+```
+```
+# 결과
 Model: "sequential"
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
@@ -271,64 +277,75 @@ Trainable params: 3,453,121
 Non-trainable params: 0
 _________________________________________________________________
 ```
+<br/><br/><br/>
+* 모델 구성에 있어서 층 개수를 conv2d & maxpooling layer를 추가 또는 Dense를 추가합니다.
+* Conv2D의 layer는 64,128,256 중으로 설정을 진행하였고 model을 구사합니다.
+<br/><br/>
 ### (4) Learning Rate, Optimized setting
 ```
 from keras import optimizers
 
 model.compile(loss='binary_crossentropy',
-              optimizer=optimizers.RMSprop(lr=1e-4), # 변수 5 adam VS RMSprop 을 비교?  # 변수6 lr : learning rate 10^-5 ~ 10^-4
+              optimizer=optimizers.RMSprop(lr=1e-4), 
               metrics=['acc'])
 ```
+<br/><br/><br/>
+* adam VS RMSprop를 변수로서 비교해봅니다.
+* lr : learning rate로 10^-5 ~ 10^-4 설정합니다. model1 같은 경우 1e-4로 설정하였습니다.
+<br/><br/>
 ### (5) Steps Per Epoch
 ```
 history = model.fit(
       train_generator,
-      steps_per_epoch=20, # 변수 7 : epoch 한 단계 steps per epoch : 한단계를 단계적으로 한 바퀴(몇 단계로 할거냐) - epoch수 조절 / 우리는 parameter를 조절하면서 오차를 개선
+      steps_per_epoch=20, 
       epochs=20,
       validation_data=validation_generator,
       validation_steps=10)
 ```
-Epoch 1/20
-20/20 [==============================] - 465s 23s/step - loss: 0.6485 - acc: 0.5725 - val_loss: 0.7634 - val_acc: 0.5300
-Epoch 2/20
-20/20 [==============================] - 311s 16s/step - loss: 0.5611 - acc: 0.7033 - val_loss: 0.4494 - val_acc: 0.9100
-Epoch 3/20
-20/20 [==============================] - 273s 14s/step - loss: 0.4729 - acc: 0.7850 - val_loss: 0.3925 - val_acc: 0.8750
-Epoch 4/20
-20/20 [==============================] - 235s 12s/step - loss: 0.4515 - acc: 0.8075 - val_loss: 0.6618 - val_acc: 0.5750
-Epoch 5/20
-20/20 [==============================] - 223s 11s/step - loss: 0.4510 - acc: 0.7852 - val_loss: 0.3226 - val_acc: 0.9050
-Epoch 6/20
-20/20 [==============================] - 217s 11s/step - loss: 0.3914 - acc: 0.8286 - val_loss: 0.3777 - val_acc: 0.8050
-Epoch 7/20
-20/20 [==============================] - 216s 11s/step - loss: 0.3870 - acc: 0.8363 - val_loss: 0.2941 - val_acc: 0.9150
-Epoch 8/20
-20/20 [==============================] - 211s 11s/step - loss: 0.3699 - acc: 0.8107 - val_loss: 0.3181 - val_acc: 0.8800
-Epoch 9/20
-20/20 [==============================] - 216s 11s/step - loss: 0.3739 - acc: 0.8389 - val_loss: 0.2470 - val_acc: 0.9250
-Epoch 10/20
-20/20 [==============================] - 210s 11s/step - loss: 0.3467 - acc: 0.8491 - val_loss: 0.3798 - val_acc: 0.8200
-Epoch 11/20
-20/20 [==============================] - 208s 11s/step - loss: 0.3650 - acc: 0.8275 - val_loss: 0.2437 - val_acc: 0.9350
-Epoch 12/20
-20/20 [==============================] - 212s 11s/step - loss: 0.3645 - acc: 0.8325 - val_loss: 0.2999 - val_acc: 0.8800
-Epoch 13/20
-20/20 [==============================] - 209s 11s/step - loss: 0.3255 - acc: 0.8491 - val_loss: 0.2548 - val_acc: 0.9150
-Epoch 14/20
-20/20 [==============================] - 206s 11s/step - loss: 0.3061 - acc: 0.8696 - val_loss: 0.2315 - val_acc: 0.9250
-Epoch 15/20
-20/20 [==============================] - 211s 11s/step - loss: 0.3108 - acc: 0.8525 - val_loss: 0.2508 - val_acc: 0.9250
-Epoch 16/20
-20/20 [==============================] - 211s 11s/step - loss: 0.3152 - acc: 0.8650 - val_loss: 0.4235 - val_acc: 0.8100
-Epoch 17/20
-20/20 [==============================] - 206s 10s/step - loss: 0.2784 - acc: 0.8824 - val_loss: 0.3082 - val_acc: 0.8500
-Epoch 18/20
-20/20 [==============================] - 204s 10s/step - loss: 0.2979 - acc: 0.8696 - val_loss: 0.2377 - val_acc: 0.9200
-Epoch 19/20
-20/20 [==============================] - 204s 10s/step - loss: 0.2837 - acc: 0.8645 - val_loss: 0.2524 - val_acc: 0.9100
-Epoch 20/20
-20/20 [==============================] - 206s 10s/step - loss: 0.2850 - acc: 0.8798 - val_loss: 0.2320 - val_acc: 0.9250
-
+Epoch 1/20<br/>
+20/20 [==============================]-465s 23s/step-loss: 0.6485-acc: 0.5725-val_loss: 0.7634-val_acc: 0.5300<br/>
+Epoch 2/20<br/>
+20/20 [==============================]-311s 16s/step-loss: 0.5611-acc: 0.7033-val_loss: 0.4494-val_acc: 0.9100<br/>
+Epoch 3/20<br/>
+20/20 [==============================]-273s 14s/step-loss: 0.4729-acc: 0.7850-val_loss: 0.3925-val_acc: 0.8750<br/>
+Epoch 4/20<br/>
+20/20 [==============================]-235s 12s/step-loss: 0.4515-acc: 0.8075-val_loss: 0.6618-val_acc: 0.5750<br/>
+Epoch 5/20<br/>
+20/20 [==============================]-223s 11s/step-loss: 0.4510-acc: 0.7852-val_loss: 0.3226-val_acc: 0.9050<br/>
+Epoch 6/20<br/>
+20/20 [==============================]-217s 11s/step-loss: 0.3914-acc: 0.8286-val_loss: 0.3777-val_acc: 0.8050<br/>
+Epoch 7/20<br/>
+20/20 [==============================]-216s 11s/step-loss: 0.3870-acc: 0.8363-val_loss: 0.2941-val_acc: 0.9150<br/>
+Epoch 8/20<br/>
+20/20 [==============================]-211s 11s/step-loss: 0.3699-acc: 0.8107-val_loss: 0.3181-val_acc: 0.8800<br/>
+Epoch 9/20<br/>
+20/20 [==============================]-216s 11s/step-loss: 0.3739-acc: 0.8389-val_loss: 0.2470-val_acc: 0.9250<br/>
+Epoch 10/20<br/>
+20/20 [==============================]-210s 11s/step-loss: 0.3467-acc: 0.8491-val_loss: 0.3798-val_acc: 0.8200<br/>
+Epoch 11/20<br/>
+20/20 [==============================]-208s 11s/step-loss: 0.3650-acc: 0.8275-val_loss: 0.2437-val_acc: 0.9350<br/>
+Epoch 12/20<br/>
+20/20 [==============================]-212s 11s/step-loss: 0.3645-acc: 0.8325-val_loss: 0.2999-val_acc: 0.8800<br/>
+Epoch 13/20<br/>
+20/20 [==============================]-209s 11s/step-loss: 0.3255-acc: 0.8491-val_loss: 0.2548-val_acc: 0.9150<br/>
+Epoch 14/20<br/>
+20/20 [==============================]-206s 11s/step-loss: 0.3061-acc: 0.8696-val_loss: 0.2315-val_acc: 0.9250<br/>
+Epoch 15/20<br/>
+20/20 [==============================]-211s 11s/step-loss: 0.3108-acc: 0.8525-val_loss: 0.2508-val_acc: 0.9250<br/>
+Epoch 16/20<br/>
+20/20 [==============================]-211s 11s/step-loss: 0.3152-acc: 0.8650-val_loss: 0.4235-val_acc: 0.8100<br/>
+Epoch 17/20<br/>
+20/20 [==============================]-206s 10s/step-loss: 0.2784-acc: 0.8824-val_loss: 0.3082-val_acc: 0.8500<br/>
+Epoch 18/20<br/>
+20/20 [==============================]-204s 10s/step-loss: 0.2979-acc: 0.8696-val_loss: 0.2377-val_acc: 0.9200<br/>
+Epoch 19/20<br/>
+20/20 [==============================]-204s 10s/step-loss: 0.2837-acc: 0.8645-val_loss: 0.2524-val_acc: 0.9100<br/>
+Epoch 20/20<br/>
+20/20 [==============================]-206s 10s/step-loss: 0.2850-acc: 0.8798-val_loss: 0.2320-val_acc: 0.9250<br/>
+<br/><br/><br/><br/>
+* steps per epoch : 한단계를 단계적으로 한 바퀴(몇 단계로 할건지)설정합니다.
+* epoch수를 조절하고 우리는 parameter를 조절하면서 오차를 개선
+<br/><br/>
 ### (6) Load models
 ```
 from keras.models import load_model
@@ -340,6 +357,7 @@ model = load_model('/content/drive/MyDrive/Colab Notebooks/tip burn project/mode
 model.summary()
 ```
 ```
+#결과
 Model: "sequential"
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
@@ -376,6 +394,9 @@ Trainable params: 3,453,121
 Non-trainable params: 0
 _________________________________________________________________
 ```
+<br/><br/><br/><br/>
+* 변수들을 설정한뒤 다시 모델을 불러옵니다.
+<br/><br/><br/>
 ### (7) Plot for the accuracy
 ```
 import matplotlib.pyplot as plt
@@ -399,10 +420,14 @@ plt.plot(epochs, val_loss, 'b', label='Validation loss')
 plt.title('Training and validation loss')
 plt.legend()
 
-plt.show() # validation acc : 진동 , 감소하는 경향 : 데이터 부족 or 개선해봐야할점 (lr이 작아서 ???) / 크롤링은 더 해야하는거지?
+plt.show()
 ```
 ![aix_model1](https://user-images.githubusercontent.com/117802301/204218717-473c62d5-7189-471a-923d-229cc7a63047.png)
-
+<br/><br/><br/><br/>
+* 최종적으로 matplotlib를 불러와 플롯을 통해 정확도를 측정합니다.
+* 오차를 줄이는 데에는 진동성, 데이터 부족, 크롤링 부족으로 판단 해보며 변수들의 값과 추가 자료를 준비해보면서 모델을 재구성합니다.
+* validation acc : 진동 , 감소하는 경향 : 데이터 부족 or 개선해봐야할점 (lr이 작아서), 크롤링 추가
+<br/><br/><br/>
 # Result : Flower-Recognition-Model
 
 ### (1) Model 1 
