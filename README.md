@@ -139,7 +139,70 @@ driver.close()
 
 
 ## 2) Flower-Recognition-Model
+### (1) Content Drive, Import OS
+```
+from google.colab import drive
+drive.mount('/content/drive')
+```
+Mounted at /content/drive
+```
+import os
+```
+### (2) Load Image, Check quantity
+```
+# 수정된 디렉토리
+train_healthy_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/train/healthy'
+train_tipburn_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/train/tipburn'
+val_healthy_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/val/healthy'
+val_tipburn_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/val/tipburn'
+test_healthy_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/test/healthy'
+test_tipburn_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/test/tipburn'
+```
+```
+print('훈련용 건강 이미지 전체 개수:',len(os.listdir(train_healthy_dir)))
+print('훈련용 팁번 이미지 전체 개수:',len(os.listdir(train_tipburn_dir)))
+print('검증용 건강 이미지 전체 개수:',len(os.listdir(val_healthy_dir)))
+print('검증용 팁번 이미지 전체 개수:',len(os.listdir(val_tipburn_dir)))
+print('테스트용 건강 이미지 전체 개수:',len(os.listdir(test_healthy_dir)))
+print('테스트용 팁번 이미지 전체 개수:',len(os.listdir(test_tipburn_dir)))
+```
+훈련용 건강 이미지 전체 개수: 443
+훈련용 팁번 이미지 전체 개수: 568
+검증용 건강 이미지 전체 개수: 124
+검증용 팁번 이미지 전체 개수: 160
+테스트용 건강 이미지 전체 개수: 59
+테스트용 팁번 이미지 전체 개수: 77
+```
+train_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/train'
+val_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/val'
+test_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/test'
+```
+### (3) Data Preprocessing, Image scaling
+```
+# 데이터 전처리
+from keras.preprocessing.image import ImageDataGenerator
 
+# 모든 이미지를 1/255로 스케일 조정
+train_datagen = ImageDataGenerator(rescale=1./255)
+test_datagen = ImageDataGenerator(rescale=1./255)
+
+train_generator = train_datagen.flow_from_directory(
+        # 타깃 디렉터리
+        train_dir,
+        # 모든 이미지를 150 × 150 크기로
+        target_size=(150, 150), # 변수1
+        batch_size=20, # 변수2
+        # binary_crossentropy 손실을 사용하기 때문에 이진 레이블이 필요하다
+        class_mode='binary')
+
+validation_generator = test_datagen.flow_from_directory(
+        val_dir,
+        target_size=(150, 150),
+        batch_size=20,
+        class_mode='binary')
+```
+Found 1011 images belonging to 2 classes.
+Found 284 images belonging to 2 classes.
 
 
 # Result : Flower-Recognition-Model
