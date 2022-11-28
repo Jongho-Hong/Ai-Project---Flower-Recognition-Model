@@ -41,7 +41,8 @@
 https://docs.google.com/spreadsheets/d/1mdLbku2yM-XiBmN0Lm_O82xbFbpup1E1mkY1KXwGuds/edit#gid=0
 https://www.kaggle.com/datasets/cf488efb70f71b0db8c5a69539ea35874787d4a4ab835126168e7af1723418d7
 ```
-![images of strawberry](https://user-images.githubusercontent.com/117802301/204216971-6f71729a-33cc-4101-af74-6cf7dbff3470.png)
+![images of strawberry](https://user-images.githubusercontent.com/117802301/204216971-6f71729a-33cc-4101-af74-6cf7dbff3470.png){: height="40%""}
+
 
 본 이미지는 kaggle 사이트에서 각 calciumdeficiency 사진 805장과 건강한 잎 626장을 데이터 셋으로 불러왔습니다. 
 구글 드라이브를 통해 총 1433의 파일을 저장하여 이를 colab으로 불러와 꽃 사진을 분류하는 프로그램을 진행하였고 kaggle 사이트에서 가져온 1433의 사진 파일과 10 columns 뿐만 아니라
@@ -57,7 +58,7 @@ https://www.kaggle.com/datasets/cf488efb70f71b0db8c5a69539ea35874787d4a4ab835126
 VSCODE를 사용하여 가상환경에서 셀레니움을 설치한다. 이후 구글에서 이미지 크롤링이 가능한 코드를 입력하여 검색어("Tipburn","Healthy leaf"),를 바꾸어가며 이미지를 수집하고, 사용 가능한 데이터를 정리한다.
 
 #### 실행모드
-![imagecrawling](https://user-images.githubusercontent.com/117802301/204221170-55b3ad92-6994-43a8-9382-45d4b71bd4f4.gif)
+![imagecrawling](https://user-images.githubusercontent.com/117802301/204221170-55b3ad92-6994-43a8-9382-45d4b71bd4f4.gif){: width="200%"", height="200%""}
 
 
 ### 2) Flow-Recognition Method using Colab
