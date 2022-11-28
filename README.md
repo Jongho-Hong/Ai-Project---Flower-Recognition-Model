@@ -1,6 +1,9 @@
-## Ai-Project-Flower-Recognition-Model
-
-# Member
+# Ai-Project-Flower-Recognition-Model
+## Topic
+```
+###꽃 생장 파악 알고리즘(CNN, Classification etc)
+```
+## Member
 ```
 권석준, 기계공학부, jun115533@hanyang.ac.kr
 김경휘, 기계공학부, kyunghui98@hanyang.ac.kr
