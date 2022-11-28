@@ -57,7 +57,7 @@ https://www.kaggle.com/datasets/cf488efb70f71b0db8c5a69539ea35874787d4a4ab835126
 VSCODE를 사용하여 가상환경에서 셀레니움을 설치한다. 이후 구글에서 이미지 크롤링이 가능한 코드를 입력하여 검색어("Tipburn","Healthy leaf"),를 바꾸어가며 이미지를 수집하고, 사용 가능한 데이터를 정리한다.
 
 #### 실행모드
-![KakaoTalk_20221118_231000902](https://user-images.githubusercontent.com/117802301/204219559-ff966898-4b72-4a2d-acfd-e4bd5bc04608.gif)
+![imagecrawling](https://user-images.githubusercontent.com/117802301/204221170-55b3ad92-6994-43a8-9382-45d4b71bd4f4.gif)
 
 
 ### 2) Flow-Recognition Method using Colab
