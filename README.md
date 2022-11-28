@@ -234,6 +234,111 @@ model.add(layers.Dense(1, activation='sigmoid'))
 ```
 ```
 model.summary()
+::
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 148, 148, 32)      896       
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 74, 74, 32)       0         
+ )                                                               
+                                                                 
+ conv2d_1 (Conv2D)           (None, 72, 72, 64)        18496     
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 36, 36, 64)       0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, 34, 34, 128)       73856     
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 17, 17, 128)      0         
+ 2D)                                                             
+                                                                 
+ conv2d_3 (Conv2D)           (None, 15, 15, 128)       147584    
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, 7, 7, 128)        0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 6272)              0         
+                                                                 
+ dense (Dense)               (None, 512)               3211776   
+                                                                 
+ dense_1 (Dense)             (None, 1)                 513       
+                                                                 
+=================================================================
+Total params: 3,453,121
+Trainable params: 3,453,121
+Non-trainable params: 0
+_________________________________________________________________
+```
+### (4) Learning Rate, Optimized setting
+```
+from keras import optimizers
+
+model.compile(loss='binary_crossentropy',
+              optimizer=optimizers.RMSprop(lr=1e-4), # 변수 5 adam VS RMSprop 을 비교?  # 변수6 lr : learning rate 10^-5 ~ 10^-4
+              metrics=['acc'])
+```
+### (5) Steps Per Epoch
+```
+history = model.fit(
+      train_generator,
+      steps_per_epoch=20, # 변수 7 : epoch 한 단계 steps per epoch : 한단계를 단계적으로 한 바퀴(몇 단계로 할거냐) - epoch수 조절 / 우리는 parameter를 조절하면서 오차를 개선
+      epochs=20,
+      validation_data=validation_generator,
+      validation_steps=10)
+```
+Epoch 1/20
+20/20 [==============================] - 465s 23s/step - loss: 0.6485 - acc: 0.5725 - val_loss: 0.7634 - val_acc: 0.5300
+Epoch 2/20
+20/20 [==============================] - 311s 16s/step - loss: 0.5611 - acc: 0.7033 - val_loss: 0.4494 - val_acc: 0.9100
+Epoch 3/20
+20/20 [==============================] - 273s 14s/step - loss: 0.4729 - acc: 0.7850 - val_loss: 0.3925 - val_acc: 0.8750
+Epoch 4/20
+20/20 [==============================] - 235s 12s/step - loss: 0.4515 - acc: 0.8075 - val_loss: 0.6618 - val_acc: 0.5750
+Epoch 5/20
+20/20 [==============================] - 223s 11s/step - loss: 0.4510 - acc: 0.7852 - val_loss: 0.3226 - val_acc: 0.9050
+Epoch 6/20
+20/20 [==============================] - 217s 11s/step - loss: 0.3914 - acc: 0.8286 - val_loss: 0.3777 - val_acc: 0.8050
+Epoch 7/20
+20/20 [==============================] - 216s 11s/step - loss: 0.3870 - acc: 0.8363 - val_loss: 0.2941 - val_acc: 0.9150
+Epoch 8/20
+20/20 [==============================] - 211s 11s/step - loss: 0.3699 - acc: 0.8107 - val_loss: 0.3181 - val_acc: 0.8800
+Epoch 9/20
+20/20 [==============================] - 216s 11s/step - loss: 0.3739 - acc: 0.8389 - val_loss: 0.2470 - val_acc: 0.9250
+Epoch 10/20
+20/20 [==============================] - 210s 11s/step - loss: 0.3467 - acc: 0.8491 - val_loss: 0.3798 - val_acc: 0.8200
+Epoch 11/20
+20/20 [==============================] - 208s 11s/step - loss: 0.3650 - acc: 0.8275 - val_loss: 0.2437 - val_acc: 0.9350
+Epoch 12/20
+20/20 [==============================] - 212s 11s/step - loss: 0.3645 - acc: 0.8325 - val_loss: 0.2999 - val_acc: 0.8800
+Epoch 13/20
+20/20 [==============================] - 209s 11s/step - loss: 0.3255 - acc: 0.8491 - val_loss: 0.2548 - val_acc: 0.9150
+Epoch 14/20
+20/20 [==============================] - 206s 11s/step - loss: 0.3061 - acc: 0.8696 - val_loss: 0.2315 - val_acc: 0.9250
+Epoch 15/20
+20/20 [==============================] - 211s 11s/step - loss: 0.3108 - acc: 0.8525 - val_loss: 0.2508 - val_acc: 0.9250
+Epoch 16/20
+20/20 [==============================] - 211s 11s/step - loss: 0.3152 - acc: 0.8650 - val_loss: 0.4235 - val_acc: 0.8100
+Epoch 17/20
+20/20 [==============================] - 206s 10s/step - loss: 0.2784 - acc: 0.8824 - val_loss: 0.3082 - val_acc: 0.8500
+Epoch 18/20
+20/20 [==============================] - 204s 10s/step - loss: 0.2979 - acc: 0.8696 - val_loss: 0.2377 - val_acc: 0.9200
+Epoch 19/20
+20/20 [==============================] - 204s 10s/step - loss: 0.2837 - acc: 0.8645 - val_loss: 0.2524 - val_acc: 0.9100
+Epoch 20/20
+20/20 [==============================] - 206s 10s/step - loss: 0.2850 - acc: 0.8798 - val_loss: 0.2320 - val_acc: 0.9250
+
+### (6) Load models
+```
+from keras.models import load_model
+model.save('/content/drive/MyDrive/Colab Notebooks/tip burn project/model/model.h5')
+```
+```
+from keras.models import load_model
+model = load_model('/content/drive/MyDrive/Colab Notebooks/tip burn project/model/model.h5')
+model.summary()
+```
 ```
 Model: "sequential"
 _________________________________________________________________
@@ -270,6 +375,33 @@ Total params: 3,453,121
 Trainable params: 3,453,121
 Non-trainable params: 0
 _________________________________________________________________
+```
+### (7) Plot for the accuracy
+```
+import matplotlib.pyplot as plt
+
+acc = history.history['acc']
+val_acc = history.history['val_acc']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs = range(len(acc))
+
+plt.plot(epochs, acc, 'bo', label='Training acc')
+plt.plot(epochs, val_acc, 'b', label='Validation acc')
+plt.title('Training and validation accuracy')
+plt.legend()
+
+plt.figure()
+
+plt.plot(epochs, loss, 'bo', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.legend()
+
+plt.show() # validation acc : 진동 , 감소하는 경향 : 데이터 부족 or 개선해봐야할점 (lr이 작아서 ???) / 크롤링은 더 해야하는거지?
+```
+![aix_model1](https://user-images.githubusercontent.com/117802301/204218717-473c62d5-7189-471a-923d-229cc7a63047.png)
 
 # Result : Flower-Recognition-Model
 
