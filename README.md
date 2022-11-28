@@ -453,6 +453,13 @@ model.add(layers.Dense(1, activation='sigmoid'))
 ![model 딥러닝 표](https://user-images.githubusercontent.com/117802301/204227189-844a6992-07ca-46b2-b193-2c8f9ef7f99b.png)
 ![model 10](https://user-images.githubusercontent.com/117802301/204227347-c7c375aa-6b6c-471d-9c72-57c2d434f2d3.png)
 
+* Insight를 모델1~9까지 develop하면서 성능이 개선되었던 포인트만 반영했더니 최고의 결과가 나왔음
+1. 이미지 사이즈를 확대하고, 모델의 깊이를 증가 => 성능 및 안정성 개선
+2. optimizers를 RMSprop 에서 Adam 으로 변경 => 학습 능력 개선
+3. 가장 학습에 알맞았던 learning rate 1e-4로 진행
+4. step per epoch 와 epoch 를 각각 30 과 25 로 진행하여, 충분한 학습이 이뤄지도록 함.
+5. Data augmentation은 적은 데이터수에 비해 과하게 다양한 학습을 일으켜 학습 성능을 저해시켰던 경험을 반영하여 삭제하였음.
+
 최종적으로 구현한 모델에서 과적함을 극복하고 loss가 감소하면서 accuracy가 증가하는 현상 발생하였습니다.
 정확도 93.47%와 val acc가 95%로 모댈의 오차를 최적화한채 구현 하였습니다.
 
