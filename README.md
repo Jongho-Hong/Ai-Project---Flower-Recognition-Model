@@ -51,7 +51,7 @@ https://www.kaggle.com/datasets/cf488efb70f71b0db8c5a69539ea35874787d4a4ab835126
 1) 파이썬 셀레니움을 통한 이미지 크롤링.
 VSCODE를 사용하여 가상환경에서 셀레니움을 설치한다. 이후 구글에서 이미지 크롤링이 가능한 코드를 입력하여 검색어("Tipburn","Healthy leaf"),를 바꾸어가며 이미지를 수집하고, 사용 가능한 데이터를 정리한다.
 ## Evaluation & Analysis
-1) 이미지 크롤링
+### 1) 이미지 크롤링
 ```
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -90,9 +90,51 @@ for image in images:
     
 driver.close()
 ```
+
 ![20221126_205108](https://user-images.githubusercontent.com/117706557/204087357-12888ceb-1214-4917-9bcd-086558420832.png)
+
+
+### 2) Flower-Recognition-Model
+#### (1) Model 1 
+(1) parameter :
+ 1) image size : 150 X 150
+ 2) batch_size : 20
+ 3) model composition :
+
+```
+model = models.Sequential()
+model.add(layers.Conv2D(32, (3, 3), activation='relu',
+                        input_shape=(150, 150, 3)))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Conv2D(128, (3, 3), activation='relu'))
+model.add(layers.MaxPooling2D((2, 2)))
+model.add(layers.Flatten())
+model.add(layers.Dense(512, activation='relu'))
+model.add(layers.Dense(1, activation='sigmoid'))
+```
+ 4) optimizers : RMSprop
+ 5) lr = 1e-4
+ 6) steps_per_epoch = 20 & epochs = 20 
+
+![aix_model1](https://user-images.githubusercontent.com/117802301/204218717-473c62d5-7189-471a-923d-229cc7a63047.png)
+
+```
+
+```
+```
+```
+```
+```
 
 ## Conclusion : Discussion
 ```
 ```
 ## Related Works
+https://goldsystem.tistory.com/822
+https://www.kaggle.com/code/mrisdal/exploring-survival-on-the-titanic/report
+https://www.kaggle.com/datasets/cf488efb70f71b0db8c5a69539ea35874787d4a4ab835126168e7af1723418d7
+- 원영준 교수님 딥러닝 강의자료
