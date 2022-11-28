@@ -62,7 +62,7 @@ VSCODE를 사용하여 가상환경에서 셀레니움을 설치한다. 이후 �
 ![imagecrawling](https://user-images.githubusercontent.com/117802301/204221170-55b3ad92-6994-43a8-9382-45d4b71bd4f4.gif)
 
 
-## 2) Flow-Recognition Method using CNN
+## 2) Flower-Recognition Method using CNN
 
 ### (1) CNN이 무엇인가?
 ![CNN system](https://user-images.githubusercontent.com/117802301/204230213-1810f4cf-9469-4f28-b62e-81d46a8dc7af.gif)
