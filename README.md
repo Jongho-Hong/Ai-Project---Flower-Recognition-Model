@@ -166,12 +166,12 @@ print('검증용 팁번 이미지 전체 개수:',len(os.listdir(val_tipburn_dir
 print('테스트용 건강 이미지 전체 개수:',len(os.listdir(test_healthy_dir)))
 print('테스트용 팁번 이미지 전체 개수:',len(os.listdir(test_tipburn_dir)))
 ```
-훈련용 건강 이미지 전체 개수: 443
-훈련용 팁번 이미지 전체 개수: 568
-검증용 건강 이미지 전체 개수: 124
-검증용 팁번 이미지 전체 개수: 160
-테스트용 건강 이미지 전체 개수: 59
-테스트용 팁번 이미지 전체 개수: 77
+훈련용 건강 이미지 전체 개수: 443<br/>
+훈련용 팁번 이미지 전체 개수: 568<br/>
+검증용 건강 이미지 전체 개수: 124<br/>
+검증용 팁번 이미지 전체 개수: 160<br/>
+테스트용 건강 이미지 전체 개수: 59<br/>
+테스트용 팁번 이미지 전체 개수: 77<br/>
 ```
 train_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/train'
 val_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/val'
