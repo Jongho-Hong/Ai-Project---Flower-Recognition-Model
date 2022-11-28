@@ -47,11 +47,27 @@ https://www.kaggle.com/datasets/cf488efb70f71b0db8c5a69539ea35874787d4a4ab835126
 구글 드라이브를 통해 총 1433의 파일을 저장하여 이를 colab으로 불러와 꽃 사진을 분류하는 프로그램을 진행하였고 kaggle 사이트에서 가져온 1433의 사진 파일과 10 columns 뿐만 아니라
 구글에서 따로 이미지 크롤링을 python 셀레니움을 통해 자동으로 정리하는 시스템을 갖보았습니다.
 
+
+
 ## Methodology
-1) 파이썬 셀레니움을 통한 이미지 크롤링.
+
+
+### 1) Image crawling using Python Selenium
+
 VSCODE를 사용하여 가상환경에서 셀레니움을 설치한다. 이후 구글에서 이미지 크롤링이 가능한 코드를 입력하여 검색어("Tipburn","Healthy leaf"),를 바꾸어가며 이미지를 수집하고, 사용 가능한 데이터를 정리한다.
+
+#### 실행모드
+![KakaoTalk_20221118_231000902](https://user-images.githubusercontent.com/117802301/204219559-ff966898-4b72-4a2d-acfd-e4bd5bc04608.gif)
+
+
+### 2) Flow-Recognition Method using Colab
+
+
+
 ## Evaluation & Analysis
-### 1) 이미지 크롤링
+
+
+### 1) Image Crawling
 ```
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -94,7 +110,9 @@ driver.close()
 ![20221126_205108](https://user-images.githubusercontent.com/117706557/204087357-12888ceb-1214-4917-9bcd-086558420832.png)
 
 
+
 ### 2) Flower-Recognition-Model
+
 #### (1) Model 1 
 (1) parameter :
  1) image size : 150 X 150
