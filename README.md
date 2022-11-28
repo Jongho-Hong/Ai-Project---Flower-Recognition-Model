@@ -148,7 +148,7 @@ Mounted at /content/drive
 ```
 import os
 ```
-<br/><br/><br/>
+<br/>
 * 드라이브와 OS를 import하면서 사진을 부를 장소를 정합니다. 
 * model1을 제작할때 사용한 코드입니다.
 <br/><br/>
@@ -181,7 +181,7 @@ train_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/train'
 val_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/val'
 test_dir = '/content/drive/MyDrive/Colab Notebooks/tip burn project/test'
 ```
-<br/><br/><br/>
+<br/><br/>
 * 구글 드라이브에 저장한 건강, 팁번 이미지들을 불러모으고 각각 훈련, 검증, 테스트용으로 분류하고 수량을 파악합니다.
 <br/><br/>
 ### (3) Data Preprocessing, Image scaling
@@ -212,7 +212,7 @@ for data_batch, labels_batch in train_generator:
     break
 ```
 배치 데이터 크기: (20, 150, 150, 3)<br/>
-배치 레이블 크기: (20,)<br/><br/><br/>
+배치 레이블 크기: (20,)<br/><br/>
 * 데이터 전처리를 진행하며 이미지를 1/255로 스케일 조정을 진행합니다. 
 * 모든 이미지를 150 × 150 크기로 타깃 디레터리를 설정 후 타깃 사이즈와 batch 사이즈를 정해줍니다.
 * Binary_crossentropy 손실을 사용하기 때문에 이진 레이블이 필요하다.
@@ -277,7 +277,7 @@ Trainable params: 3,453,121
 Non-trainable params: 0
 _________________________________________________________________
 ```
-<br/><br/><br/>
+<br/><br/>
 * 모델 구성에 있어서 층 개수를 conv2d & maxpooling layer를 추가 또는 Dense를 추가합니다.
 * Conv2D의 layer는 64,128,256 중으로 설정을 진행하였고 model을 구사합니다.
 <br/><br/>
@@ -289,7 +289,7 @@ model.compile(loss='binary_crossentropy',
               optimizer=optimizers.RMSprop(lr=1e-4), 
               metrics=['acc'])
 ```
-<br/><br/><br/>
+<br/><br/>
 * adam VS RMSprop를 변수로서 비교해봅니다.
 * lr : learning rate로 10^-5 ~ 10^-4 설정합니다. model1 같은 경우 1e-4로 설정하였습니다.
 <br/><br/>
@@ -342,7 +342,7 @@ Epoch 19/20<br/>
 20/20 [==============================]-204s 10s/step-loss: 0.2837-acc: 0.8645-val_loss: 0.2524-val_acc: 0.9100<br/>
 Epoch 20/20<br/>
 20/20 [==============================]-206s 10s/step-loss: 0.2850-acc: 0.8798-val_loss: 0.2320-val_acc: 0.9250<br/>
-<br/><br/><br/><br/>
+<br/><br/><br/>
 * steps per epoch : 한단계를 단계적으로 한 바퀴(몇 단계로 할건지)설정합니다.
 * epoch수를 조절하고 우리는 parameter를 조절하면서 오차를 개선
 <br/><br/>
@@ -394,9 +394,9 @@ Trainable params: 3,453,121
 Non-trainable params: 0
 _________________________________________________________________
 ```
-<br/><br/><br/><br/>
+<br/><br/>
 * 변수들을 설정한뒤 다시 모델을 불러옵니다.
-<br/><br/><br/>
+<br/><br/><br/><br/><br/>
 ### (7) Plot for the accuracy
 ```
 import matplotlib.pyplot as plt
