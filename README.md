@@ -4,7 +4,7 @@
 꽃 생장 파악 알고리즘(CNN, Classification etc)
 ```
 # Member
-```
+```python
 권석준, 기계공학부, jun115533@hanyang.ac.kr
 김경휘, 기계공학부, kyunghui98@hanyang.ac.kr
 홍종호, 기계공학부, hjho6389@hanyang.ac.kr
@@ -790,10 +790,9 @@ model.add(layers.Dense(1, activation='sigmoid'))
 
 
 # Related Works
-https://goldsystem.tistory.com/822
-https://www.kaggle.com/code/mrisdal/exploring-survival-on-the-titanic/report
-https://www.kaggle.com/datasets/cf488efb70f71b0db8c5a69539ea35874787d4a4ab835126168e7af1723418d7
-http://taewan.kim/post/cnn/
-https://rubber-tree.tistory.com/entry/%EB%94%A5%EB%9F%AC%EB%8B%9D-%EB%AA%A8%EB%8D%B8-CNN-Convolutional-Neural-Network-%EC%84%A4%EB%AA%85
-https://halfundecided.medium.com/%EB%94%A5%EB%9F%AC%EB%8B%9D-%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-cnn-convolutional-neural-networks-%EC%89%BD%EA%B2%8C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-836869f88375
+- https://goldsystem.tistory.com/822 <br/>
+- https://www.kaggle.com/code/mrisdal/exploring-survival-on-the-titanic/report <br/>
+- https://www.kaggle.com/datasets/cf488efb70f71b0db8c5a69539ea35874787d4a4ab835126168e7af1723418d7 <br/>
+- http://taewan.kim/post/cnn/ <br/>
+- https://rubber-tree.tistory.com/entry/%EB%94%A5%EB%9F%AC%EB%8B%9D-%EB%AA%A8%EB%8D%B8-CNN-Convolutional-Neural-Network-%EC%84%A4%EB%AA%85 <br/>
 - 원영준 교수님 딥러닝 강의자료
