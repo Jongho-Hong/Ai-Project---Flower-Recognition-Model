@@ -1,6 +1,6 @@
 # Ai-Project-Flower-Recognition-Model
 # Topic
-```
+```python
 꽃 생장 파악 알고리즘(CNN, Classification etc)
 ```
 # Member
@@ -10,7 +10,7 @@
 홍종호, 기계공학부, hjho6389@hanyang.ac.kr
 ```
 # Index
-```
+```python
 1. Motivation
 
 2. Datasets
@@ -39,7 +39,7 @@
 * 꽃 이미지로, 어떤 꽃인지 판별
 
 # Dataset
-```
+```python
 https://docs.google.com/spreadsheets/d/1mdLbku2yM-XiBmN0Lm_O82xbFbpup1E1mkY1KXwGuds/edit#gid=0
 https://www.kaggle.com/datasets/cf488efb70f71b0db8c5a69539ea35874787d4a4ab835126168e7af1723418d7
 ```
@@ -95,7 +95,7 @@ CNN은 위 이미지와 같이 이미지의 특징을 추출하는 부분과 클
 
 
 ## 1) Image Crawling
-```
+```python
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -141,7 +141,7 @@ driver.close()
 ## 2) Flower-Recognition-Model
 
 ### (1) Content Drive, Import OS
-```
+```python
 from google.colab import drive
 drive.mount('/content/drive')
 ```
